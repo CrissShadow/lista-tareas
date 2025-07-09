@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tareas - Cristian</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    #taskInput {
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+    }
+    #addBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+    li {
+      background: #fff;
+      padding: 10px;
+      margin: 5px auto;
+      width: 50%;
+      border: 1px solid #ccc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+    .delete {
+      color: red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de Tareas</h1>
+  <input type="text" id="taskInput" placeholder="Escribe una tarea...">
+  <button id="addBtn">Agregar</button>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    const taskInput = document.getElementById("taskInput");
+    const addBtn = document.getElementById("addBtn");
+    const taskList = document.getElementById("taskList");
+
+    addBtn.addEventListener("click", () => {
+      const taskText = taskInput.value.trim();
+      if (taskText !== "") {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span class="task">${taskText}</span>
+          <span>
+            <button onclick="completeTask(this)">✔</button>
+            <span class="delete" onclick="deleteTask(this)">✖</span>
+          </span>
+        `;
+        taskList.appendChild(li);
+        taskInput.value = "";
+      }
+    });
+
+    function completeTask(btn) {
+      const taskItem = btn.parentElement.parentElement.querySelector(".task");
+      taskItem.classList.toggle("completed");
+    }
+
+    function deleteTask(span) {
+      const li = span.parentElement.parentElement;
+      taskList.removeChild(li);
+    }
+  </script>
+</body>
+</html>
